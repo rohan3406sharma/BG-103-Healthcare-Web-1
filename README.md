@@ -8,7 +8,7 @@ A full-stack, scalable Healthtech platform built for hackathons. MediConnect pro
 - **👨‍⚕️ Intelligent Doctor Search**: Advanced robust filtering allowing patients to dynamically search for doctors by specialty, location, or name (integrated Indian-subcontinent demographic data).
 - **📅 Appointment Management**: Full CRUD capability enabling patients to Book, Views, Reschedule, or securely Soft-Delete (Cancel) clinical appointments.
 - **💊 Pharmacy E-Commerce**: Seamlessly browse local medicine generic inventory, place digital orders, and dynamically parse carts into database models without timeouts.
-- **📁 Medical Record Tracking**: Direct upload interface allowing patients to digitally capture and parse historic Lab Reports and documents directly into their profiles.
+- **📁 Medical Record Tracking**: Direct upload in terface allowing patients to digitally capture and parse historic Lab Reports and documents directly into their profiles.
 
 ## 🛠️ Technology Stack
 
