@@ -8,7 +8,7 @@
    Frontend calls these endpoints — implement them accordingly.
    ============================================================ */
 
-const API = 'http://localhost:3000/api';
+const API = 'https://bg-103-healthcare-web-1.onrender.com/api';
 
 /* ============================================================
    API ENDPOINT REFERENCE
@@ -104,10 +104,10 @@ async function api(method, endpoint, body = null, isForm = false) {
   }
 }
 
-const GET  = (ep)      => api('GET', ep);
+const GET = (ep) => api('GET', ep);
 const POST = (ep, b, f) => api('POST', ep, b, f);
-const PUT  = (ep, b)   => api('PUT', ep, b);
-const DEL  = (ep)      => api('DELETE', ep);
+const PUT = (ep, b) => api('PUT', ep, b);
+const DEL = (ep) => api('DELETE', ep);
 
 /* ---- Toast Notifications ---- */
 function toast(msg, type = 'default', duration = 3500) {

@@ -1,100 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lab Reports — MediConnect Patient</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-<div class="app-layout">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="logo-brand"><span class="logo-icon">🏥</span> MediConnect</div><div class="logo-sub">Patient Portal</div></div>
-    <nav class="sidebar-nav">
-      <div class="nav-group-label">Main</div>
-      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
-      <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Find Doctors</a>
-      <a href="appointments.html" class="nav-link"><span class="nav-icon">📅</span> Appointments</a>
-      <div class="nav-group-label">Health</div>
-      <a href="medical-records.html" class="nav-link"><span class="nav-icon">📁</span> Medical Records</a>
-      <a href="prescriptions.html" class="nav-link"><span class="nav-icon">💊</span> Prescriptions</a>
-      <a href="lab-reports.html" class="nav-link active"><span class="nav-icon">🔬</span> Lab Reports</a>
-      <a href="pharmacy.html" class="nav-link"><span class="nav-icon">🏪</span> Pharmacy</a>
-      <div class="nav-group-label">Account</div>
-      <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> Billing</a>
-      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
-      <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> Notifications</a>
-      <a href="emergency.html" class="nav-link"><span class="nav-icon">🆘</span> Emergency SOS</a>
-    </nav>
-    <div class="sidebar-footer"><div class="sidebar-user" onclick="logout()"><div class="s-avatar" id="sidebar-avatar">P</div><div><div class="s-user-name" id="sidebar-user-name">Patient</div><div class="s-user-role">Sign out →</div></div></div></div>
-  </aside>
-
-  <main class="main-content">
-    <header class="top-bar">
-      <div class="top-bar-title">Lab Reports</div>
-      <div class="top-bar-actions">
-        <button class="icon-btn" onclick="window.location.href='notifications.html'">🔔</button>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-brand"><span class="logo-icon">🏥</span> MediConnect</div>
+        <div class="logo-sub">Patient Portal</div>
       </div>
-    </header>
-
-    <div class="page-content">
-      <!-- Filter -->
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Search tests…" />
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Main</div>
+        <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Find Doctors</a>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">📅</span> Appointments</a>
+        <div class="nav-group-label">Health</div>
+        <a href="medical-records.html" class="nav-link"><span class="nav-icon">📁</span> Medical Records</a>
+        <a href="prescriptions.html" class="nav-link"><span class="nav-icon">💊</span> Prescriptions</a>
+        <a href="lab-reports.html" class="nav-link active"><span class="nav-icon">🔬</span> Lab Reports</a>
+        <a href="pharmacy.html" class="nav-link"><span class="nav-icon">🏪</span> Pharmacy</a>
+        <div class="nav-group-label">Account</div>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> Billing</a>
+        <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> Notifications</a>
+        <a href="emergency.html" class="nav-link"><span class="nav-icon">🆘</span> Emergency SOS</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user" onclick="logout()">
+          <div class="s-avatar" id="sidebar-avatar">P</div>
+          <div>
+            <div class="s-user-name" id="sidebar-user-name">Patient</div>
+            <div class="s-user-role">Sign out →</div>
+          </div>
         </div>
-        <select class="form-control" id="statusFilter" style="width:auto;min-width:160px;" onchange="loadReports()">
-          <option value="">All Status</option>
-          <option value="pending">Pending</option>
-          <option value="ready">Ready</option>
-        </select>
-        <input type="date" class="form-control" id="fromDate" style="width:auto;" />
-        <input type="date" class="form-control" id="toDate" style="width:auto;" />
-        <button class="btn btn-secondary" onclick="loadReports()">Filter</button>
       </div>
+    </aside>
 
-      <!-- Reports List -->
-      <div id="reports-container">
-        <div class="empty-state"><div class="empty-icon">🔬</div><h3>Loading lab reports…</h3></div>
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="top-bar-title">Lab Reports</div>
+        <div class="top-bar-actions">
+          <button class="btn btn-primary btn-sm" onclick="openModal('addReportModal')">+ Add Lab Report</button>
+          <button class="icon-btn" onclick="window.location.href='notifications.html'">🔔</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <!-- Filter -->
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search tests…" />
+          </div>
+          <select class="form-control" id="statusFilter" style="width:auto;min-width:160px;" onchange="loadReports()">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="ready">Ready</option>
+          </select>
+          <input type="date" class="form-control" id="fromDate" style="width:auto;" />
+          <input type="date" class="form-control" id="toDate" style="width:auto;" />
+          <button class="btn btn-secondary" onclick="loadReports()">Filter</button>
+        </div>
+
+        <!-- Reports List -->
+        <div id="reports-container">
+          <div class="empty-state">
+            <div class="empty-icon">🔬</div>
+            <h3>Loading lab reports…</h3>
+          </div>
+        </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
-<!-- Lab Report Detail Modal -->
-<div class="modal-overlay" id="reportModal">
-  <div class="modal modal-lg">
-    <div class="modal-header"><span class="modal-title">Lab Report Details</span><button class="modal-close" onclick="closeModal('reportModal')">✕</button></div>
-    <div class="modal-body" id="reportModalBody">Loading…</div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('reportModal')">Close</button>
-      <button class="btn btn-primary" id="download-report-btn">⬇ Download Report</button>
+  <!-- Lab Report Detail Modal -->
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><span class="modal-title">Lab Report Details</span><button class="modal-close"
+          onclick="closeModal('reportModal')">✕</button></div>
+      <div class="modal-body" id="reportModalBody">Loading…</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('reportModal')">Close</button>
+        <button class="btn btn-primary" id="download-report-btn">⬇ Download Report</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
-<script src="js/app.js"></script>
-<script>
-  function logout() { auth.clear(); window.location.href = 'index.html'; }
+  <!-- Add Lab Report Modal -->
+  <div class="modal-overlay" id="addReportModal">
+    <div class="modal">
+      <div class="modal-header"><span class="modal-title">Add Lab Report Override</span><button class="modal-close"
+          onclick="closeModal('addReportModal')">✕</button></div>
+      <div class="modal-body">
+        <form id="addReportForm">
+          <div class="form-group">
+            <label class="form-label">Test Name</label>
+            <input type="text" class="form-control" id="add-lr-test" placeholder="e.g. Complete Blood Count" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ordering Doctor</label>
+            <input type="text" class="form-control" id="add-lr-doc" placeholder="e.g. Dr. Rajesh Kumar" required />
+          </div>
+          <h4 style="margin:16px 0 8px 0; font-size:14px;">Lab Result Parameter</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Parameter</label>
+              <input type="text" class="form-control" id="add-lr-param" placeholder="e.g. Hemoglobin" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Value</label>
+              <input type="text" class="form-control" id="add-lr-val" placeholder="e.g. 14.2" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Unit</label>
+              <input type="text" class="form-control" id="add-lr-unit" placeholder="e.g. g/dL" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reference Range</label>
+              <input type="text" class="form-control" id="add-lr-ref" placeholder="e.g. 13.0 - 17.0" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-control" id="add-lr-status" required>
+              <option value="ready">Results Ready</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addReportModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="submitLabReport()">Save Report</button>
+      </div>
+    </div>
+  </div>
 
-  // GET /api/lab-reports?status=&from=&to=&search=
-  async function loadReports() {
-    const params = new URLSearchParams({
-      status: document.getElementById('statusFilter').value,
-      from: document.getElementById('fromDate').value,
-      to: document.getElementById('toDate').value,
-      search: document.getElementById('searchInput').value
-    }).toString();
-    document.getElementById('reports-container').innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><h3>Loading…</h3></div>';
-    try {
-      const data = await GET(`/lab-reports?${params}`);
-      const reports = Array.isArray(data) ? data : data.reports || [];
-      if (!reports.length) {
-        document.getElementById('reports-container').innerHTML = '<div class="empty-state"><div class="empty-icon">🔬</div><h3>No lab reports found</h3><p>Your test results will appear here once ready</p></div>';
-        return;
-      }
-      document.getElementById('reports-container').innerHTML = reports.map(r => `
+  <div class="toast" id="toast"></div>
+  <script src="js/app.js"></script>
+  <script>
+    function logout() { auth.clear(); window.location.href = 'index.html'; }
+
+    // GET /api/lab-reports?status=&from=&to=&search=
+    async function loadReports() {
+      const params = new URLSearchParams({
+        status: document.getElementById('statusFilter').value,
+        from: document.getElementById('fromDate').value,
+        to: document.getElementById('toDate').value,
+        search: document.getElementById('searchInput').value
+      }).toString();
+      document.getElementById('reports-container').innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><h3>Loading…</h3></div>';
+      try {
+        const data = await GET(`/lab-reports?${params}`);
+        const reports = Array.isArray(data) ? data : data.reports || [];
+        if (!reports.length) {
+          document.getElementById('reports-container').innerHTML = '<div class="empty-state"><div class="empty-icon">🔬</div><h3>No lab reports found</h3><p>Your test results will appear here once ready</p></div>';
+          return;
+        }
+        document.getElementById('reports-container').innerHTML = reports.map(r => `
         <div class="card mb-22" style="margin-bottom:16px;">
           <div class="card-header">
             <div>
@@ -122,17 +193,17 @@
             ${r.results.length > 4 ? `<button class="btn btn-ghost btn-sm mt-4" onclick="viewReport(${r.id})">View all ${r.results.length} parameters →</button>` : ''}
           </div>` : ''}
         </div>`).join('');
-    } catch (err) {
-      document.getElementById('reports-container').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Failed to load</h3><p>${err.message}</p></div>`;
+      } catch (err) {
+        document.getElementById('reports-container').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Failed to load</h3><p>${err.message}</p></div>`;
+      }
     }
-  }
 
-  // GET /api/lab-reports/:id
-  async function viewReport(id) {
-    openModal('reportModal');
-    try {
-      const r = await GET(`/lab-reports/${id}`);
-      document.getElementById('reportModalBody').innerHTML = `
+    // GET /api/lab-reports/:id
+    async function viewReport(id) {
+      openModal('reportModal');
+      try {
+        const r = await GET(`/lab-reports/${id}`);
+        document.getElementById('reportModalBody').innerHTML = `
         <div style="background:var(--bg);border-radius:10px;padding:16px;margin-bottom:20px;">
           <div class="flex justify-between items-center mb-2">
             <h3 class="fw-700">🔬 ${r.test_name}</h3>
@@ -158,13 +229,62 @@
             </div>
           </div>`).join('')}
         ${r.remarks ? `<div class="alert alert-warning" style="margin-top:16px;"><span>🩺</span> <strong>Remarks:</strong> ${r.remarks}</div>` : ''}`;
-      document.getElementById('download-report-btn').onclick = () => r.file_url ? window.open(r.file_url) : toast('No downloadable file', 'warning');
-    } catch (err) {
-      document.getElementById('reportModalBody').innerHTML = `<p class="text-danger">${err.message}</p>`;
-    }
-  }
 
-  loadReports();
-</script>
+        document.getElementById('download-report-btn').onclick = () => {
+          const docName = r.test_name ? r.test_name.replace(/ /g, '_') : 'lab_report';
+          const blob = new Blob(['Mock Lab Report Final Result for: ' + r.test_name + '\nOrdered by: Dr. ' + r.doctor_name + '\nStatus: ' + r.status], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = docName + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        };
+      } catch (err) {
+        document.getElementById('reportModalBody').innerHTML = `<p class="text-danger">${err.message}</p>`;
+      }
+    }
+
+    async function submitLabReport() {
+      const test = document.getElementById('add-lr-test').value;
+      const doc = document.getElementById('add-lr-doc').value;
+      const stat = document.getElementById('add-lr-status').value;
+
+      // Result parameter mapping building
+      const param = document.getElementById('add-lr-param').value;
+      const val = document.getElementById('add-lr-val').value;
+
+      if (!test || !doc || !param || !val) return toast('Please fill required fields', 'error');
+
+      const payload = {
+        test_name: test,
+        doctor_name: doc,
+        status: stat,
+        date: new Date().toISOString().split('T')[0],
+        results: [{
+          parameter: param,
+          value: val,
+          unit: document.getElementById('add-lr-unit').value,
+          reference_range: document.getElementById('add-lr-ref').value,
+          flag: ''
+        }]
+      };
+
+      try {
+        await POST('/lab-reports', payload);
+        closeModal('addReportModal');
+        toast('Lab Report added!', 'success');
+        document.getElementById('addReportForm').reset();
+        loadReports();
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    }
+
+    loadReports();
+  </script>
 </body>
+
 </html>

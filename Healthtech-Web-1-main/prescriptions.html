@@ -1,85 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prescriptions — MediConnect Patient</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-<div class="app-layout">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="logo-brand"><span class="logo-icon">🏥</span> MediConnect</div><div class="logo-sub">Patient Portal</div></div>
-    <nav class="sidebar-nav">
-      <div class="nav-group-label">Main</div>
-      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
-      <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Find Doctors</a>
-      <a href="appointments.html" class="nav-link"><span class="nav-icon">📅</span> Appointments</a>
-      <div class="nav-group-label">Health</div>
-      <a href="medical-records.html" class="nav-link"><span class="nav-icon">📁</span> Medical Records</a>
-      <a href="prescriptions.html" class="nav-link active"><span class="nav-icon">💊</span> Prescriptions</a>
-      <a href="lab-reports.html" class="nav-link"><span class="nav-icon">🔬</span> Lab Reports</a>
-      <a href="pharmacy.html" class="nav-link"><span class="nav-icon">🏪</span> Pharmacy</a>
-      <div class="nav-group-label">Account</div>
-      <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> Billing</a>
-      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
-      <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> Notifications</a>
-      <a href="emergency.html" class="nav-link"><span class="nav-icon">🆘</span> Emergency SOS</a>
-    </nav>
-    <div class="sidebar-footer"><div class="sidebar-user" onclick="logout()"><div class="s-avatar" id="sidebar-avatar">P</div><div><div class="s-user-name" id="sidebar-user-name">Patient</div><div class="s-user-role">Sign out →</div></div></div></div>
-  </aside>
-
-  <main class="main-content">
-    <header class="top-bar">
-      <div class="top-bar-title">My Prescriptions</div>
-      <div class="top-bar-actions">
-        <button class="icon-btn" onclick="window.location.href='notifications.html'">🔔</button>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-brand"><span class="logo-icon">🏥</span> MediConnect</div>
+        <div class="logo-sub">Patient Portal</div>
       </div>
-    </header>
-
-    <div class="page-content">
-      <div class="tabs page-tabs">
-        <button class="tab-btn active" data-tab="tab-active">Active</button>
-        <button class="tab-btn" data-tab="tab-past-rx">Past</button>
-      </div>
-
-      <!-- Active Prescriptions -->
-      <div id="tab-active" class="tab-pane active">
-        <div id="active-rx-list">
-          <div class="empty-state"><div class="empty-icon">💊</div><h3>No active prescriptions</h3><p>Your prescriptions issued by doctors will appear here</p></div>
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Main</div>
+        <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="doctors.html" class="nav-link"><span class="nav-icon">👨‍⚕️</span> Find Doctors</a>
+        <a href="appointments.html" class="nav-link"><span class="nav-icon">📅</span> Appointments</a>
+        <div class="nav-group-label">Health</div>
+        <a href="medical-records.html" class="nav-link"><span class="nav-icon">📁</span> Medical Records</a>
+        <a href="prescriptions.html" class="nav-link active"><span class="nav-icon">💊</span> Prescriptions</a>
+        <a href="lab-reports.html" class="nav-link"><span class="nav-icon">🔬</span> Lab Reports</a>
+        <a href="pharmacy.html" class="nav-link"><span class="nav-icon">🏪</span> Pharmacy</a>
+        <div class="nav-group-label">Account</div>
+        <a href="billing.html" class="nav-link"><span class="nav-icon">💳</span> Billing</a>
+        <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+        <a href="notifications.html" class="nav-link"><span class="nav-icon">🔔</span> Notifications</a>
+        <a href="emergency.html" class="nav-link"><span class="nav-icon">🆘</span> Emergency SOS</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user" onclick="logout()">
+          <div class="s-avatar" id="sidebar-avatar">P</div>
+          <div>
+            <div class="s-user-name" id="sidebar-user-name">Patient</div>
+            <div class="s-user-role">Sign out →</div>
+          </div>
         </div>
       </div>
+    </aside>
 
-      <!-- Past Prescriptions -->
-      <div id="tab-past-rx" class="tab-pane">
-        <div id="past-rx-list">
-          <div class="empty-state"><div class="empty-icon">📋</div><h3>No past prescriptions</h3><p>Expired or completed prescriptions will appear here</p></div>
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="top-bar-title">My Prescriptions</div>
+        <div class="top-bar-actions">
+          <button class="btn btn-primary btn-sm" onclick="openModal('addRxModal')">+ Add Prescription</button>
+          <button class="icon-btn" onclick="window.location.href='notifications.html'">🔔</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="tabs page-tabs">
+          <button class="tab-btn active" data-tab="tab-active">Active</button>
+          <button class="tab-btn" data-tab="tab-past-rx">Past</button>
+        </div>
+
+        <!-- Active Prescriptions -->
+        <div id="tab-active" class="tab-pane active">
+          <div id="active-rx-list">
+            <div class="empty-state">
+              <div class="empty-icon">💊</div>
+              <h3>No active prescriptions</h3>
+              <p>Your prescriptions issued by doctors will appear here</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past Prescriptions -->
+        <div id="tab-past-rx" class="tab-pane">
+          <div id="past-rx-list">
+            <div class="empty-state">
+              <div class="empty-icon">📋</div>
+              <h3>No past prescriptions</h3>
+              <p>Expired or completed prescriptions will appear here</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
-<!-- Prescription Detail Modal -->
-<div class="modal-overlay" id="rxModal">
-  <div class="modal modal-lg">
-    <div class="modal-header"><span class="modal-title">Prescription Details</span><button class="modal-close" onclick="closeModal('rxModal')">✕</button></div>
-    <div class="modal-body" id="rxModalBody">Loading…</div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('rxModal')">Close</button>
-      <button class="btn btn-primary" onclick="orderFromPharmacy()">🏪 Order Medicines</button>
+  <!-- Prescription Detail Modal -->
+  <div class="modal-overlay" id="rxModal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><span class="modal-title">Prescription Details</span><button class="modal-close"
+          onclick="closeModal('rxModal')">✕</button></div>
+      <div class="modal-body" id="rxModalBody">Loading…</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('rxModal')">Close</button>
+        <button class="btn btn-primary" onclick="orderFromPharmacy()">🏪 Order Medicines</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
-<script src="js/app.js"></script>
-<script>
-  function logout() { auth.clear(); window.location.href = 'index.html'; }
+  <!-- Add Prescription Modal -->
+  <div class="modal-overlay" id="addRxModal">
+    <div class="modal">
+      <div class="modal-header"><span class="modal-title">Add Prescription Override</span><button class="modal-close"
+          onclick="closeModal('addRxModal')">✕</button></div>
+      <div class="modal-body">
+        <form id="addRxForm">
+          <div class="form-group">
+            <label class="form-label">Doctor Name</label>
+            <input type="text" class="form-control" id="add-rx-doc" placeholder="e.g. Dr. Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diagnosis / Specialty</label>
+            <input type="text" class="form-control" id="add-rx-spec" placeholder="e.g. General Checkup" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Medicine</label>
+              <input type="text" class="form-control" id="add-rx-med" placeholder="e.g. Paracetamol" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Dosage</label>
+              <input type="text" class="form-control" id="add-rx-dosage" placeholder="e.g. 500mg, 1x a Day" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration</label>
+            <input type="text" class="form-control" id="add-rx-duration" placeholder="e.g. 5 days" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-control" id="add-rx-status" required>
+              <option value="active">Active</option>
+              <option value="expired">Past / Expired</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addRxModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="submitPrescription()">Save Prescription</button>
+      </div>
+    </div>
+  </div>
 
-  let currentRx = null;
+  <div class="toast" id="toast"></div>
+  <script src="js/app.js"></script>
+  <script>
+    function logout() { auth.clear(); window.location.href = 'index.html'; }
 
-  function renderRxCard(rx, container) {
-    return `
+    let currentRx = null;
+
+    function renderRxCard(rx, container) {
+      return `
       <div class="rx-card" id="rx-${rx.id}">
         <div class="rx-header">
           <div>
@@ -90,7 +159,7 @@
           <button class="btn btn-outline btn-sm" onclick="viewRx(${rx.id})">View Details</button>
         </div>
         <div class="rx-medicines">
-          ${(rx.medicines || []).slice(0,3).map(m => `
+          ${(rx.medicines || []).slice(0, 3).map(m => `
             <div class="rx-med">
               <span class="rx-med-icon">💊</span>
               <div>
@@ -102,37 +171,37 @@
         </div>
         ${rx.instructions ? `<div class="alert alert-info" style="margin-top:14px;"><span>📝</span> ${rx.instructions}</div>` : ''}
       </div>`;
-  }
+    }
 
-  // GET /api/prescriptions?status=active
-  async function loadActive() {
-    try {
-      const data = await GET('/prescriptions?status=active');
-      const list = Array.isArray(data) ? data : data.prescriptions || [];
-      document.getElementById('active-rx-list').innerHTML = list.length
-        ? list.map(rx => renderRxCard(rx)).join('')
-        : '<div class="empty-state"><div class="empty-icon">💊</div><h3>No active prescriptions</h3></div>';
-    } catch (err) { toast(err.message, 'error'); }
-  }
+    // GET /api/prescriptions?status=active
+    async function loadActive() {
+      try {
+        const data = await GET('/prescriptions?status=active');
+        const list = Array.isArray(data) ? data : data.prescriptions || [];
+        document.getElementById('active-rx-list').innerHTML = list.length
+          ? list.map(rx => renderRxCard(rx)).join('')
+          : '<div class="empty-state"><div class="empty-icon">💊</div><h3>No active prescriptions</h3></div>';
+      } catch (err) { toast(err.message, 'error'); }
+    }
 
-  // GET /api/prescriptions?status=expired
-  async function loadPast() {
-    try {
-      const data = await GET('/prescriptions?status=expired');
-      const list = Array.isArray(data) ? data : data.prescriptions || [];
-      document.getElementById('past-rx-list').innerHTML = list.length
-        ? list.map(rx => renderRxCard(rx)).join('')
-        : '<div class="empty-state"><div class="empty-icon">📋</div><h3>No past prescriptions</h3></div>';
-    } catch (err) {}
-  }
+    // GET /api/prescriptions?status=expired
+    async function loadPast() {
+      try {
+        const data = await GET('/prescriptions?status=expired');
+        const list = Array.isArray(data) ? data : data.prescriptions || [];
+        document.getElementById('past-rx-list').innerHTML = list.length
+          ? list.map(rx => renderRxCard(rx)).join('')
+          : '<div class="empty-state"><div class="empty-icon">📋</div><h3>No past prescriptions</h3></div>';
+      } catch (err) { }
+    }
 
-  // GET /api/prescriptions/:id
-  async function viewRx(id) {
-    openModal('rxModal');
-    try {
-      const rx = await GET(`/prescriptions/${id}`);
-      currentRx = rx;
-      document.getElementById('rxModalBody').innerHTML = `
+    // GET /api/prescriptions/:id
+    async function viewRx(id) {
+      openModal('rxModal');
+      try {
+        const rx = await GET(`/prescriptions/${id}`);
+        currentRx = rx;
+        document.getElementById('rxModalBody').innerHTML = `
         <div style="background:var(--bg);border-radius:10px;padding:16px;margin-bottom:20px;">
           <div class="flex justify-between items-center mb-2">
             <h3 class="fw-700">Prescription #${rx.id}</h3>
@@ -158,19 +227,55 @@
             </div>`).join('')}
         </div>
         ${rx.general_notes ? `<div class="alert alert-warning" style="margin-top:16px;"><span>⚠️</span> <strong>Doctor's Notes:</strong> ${rx.general_notes}</div>` : ''}`;
-    } catch (err) {
-      document.getElementById('rxModalBody').innerHTML = `<p class="text-danger">Failed to load: ${err.message}</p>`;
+      } catch (err) {
+        document.getElementById('rxModalBody').innerHTML = `<p class="text-danger">Failed to load: ${err.message}</p>`;
+      }
     }
-  }
 
-  function orderFromPharmacy() {
-    closeModal('rxModal');
-    window.location.href = 'pharmacy.html';
-  }
+    async function submitPrescription() {
+      const doc = document.getElementById('add-rx-doc').value;
+      const spec = document.getElementById('add-rx-spec').value;
+      const med = document.getElementById('add-rx-med').value;
+      const dosage = document.getElementById('add-rx-dosage').value;
+      const dur = document.getElementById('add-rx-duration').value;
+      const stat = document.getElementById('add-rx-status').value;
 
-  initTabs('.page-tabs');
-  loadActive();
-  loadPast();
-</script>
+      if (!doc || !med || !dosage) return toast('Please fill required fields', 'error');
+
+      const payload = {
+        doctor_name: doc,
+        specialty: spec,
+        status: stat,
+        date: new Date().toISOString().split('T')[0],
+        medicines: [{
+          name: med,
+          dosage: dosage,
+          frequency: '',
+          duration: dur
+        }]
+      };
+
+      try {
+        await POST('/prescriptions', payload);
+        closeModal('addRxModal');
+        toast('Prescription added!', 'success');
+        document.getElementById('addRxForm').reset();
+        loadActive();
+        loadPast();
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    }
+
+    function orderFromPharmacy() {
+      closeModal('rxModal');
+      window.location.href = 'pharmacy.html';
+    }
+
+    initTabs('.page-tabs');
+    loadActive();
+    loadPast();
+  </script>
 </body>
+
 </html>
